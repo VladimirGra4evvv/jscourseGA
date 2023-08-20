@@ -1,16 +1,9 @@
-let title;
-let screens;
-let screenPrice;
-let rollback;
-let fullPrice;
-let adaptive;
-
-title = "Урок 2";
-screens = "Простые, Сложные, Интерактивные";
-screenPrice = 30000;
-rollback = 20;
-fullPrice = 85000;
-adaptive = true;
+const title = "Урок 2";;
+const screens = "Простые, Сложные, Интерактивные";;
+const screenPrice = 30000;
+const rollback = 20;
+const fullPrice = 85000;
+const adaptive = true;
 
 console.log(typeof title);
 console.log(typeof fullPrice);
