@@ -1,9 +1,10 @@
-const title = "Урок 2";;
-const screens = "Простые, Сложные, Интерактивные";;
-const screenPrice = 30000;
+const title = prompt('Как называется ваш проект?', "Проект 1");
+const screens = prompt('Какие типы экранов нужно разработать?', "Простые, Сложные, Интерактивные");
+const screenPrice = prompt('Сколько будет стоить данная работа?', "12000");
+const adaptive = prompt('Нужен ли адаптив на сайте?');
 const rollback = 20;
 const fullPrice = 85000;
-const adaptive = true;
+
 
 console.log(typeof title);
 console.log(typeof fullPrice);
@@ -24,6 +25,16 @@ console.log('\n');
 console.log(screens.split(" "));
 console.log('\n');
 console.log("Процент отката посреднику за работу " + (fullPrice * (rollback / 100)) + " RUB");
+console.log('\n');
+console.log('\n');
+console.log(title);
+console.log(screens);
+console.log(screenPrice);
+if (adaptive == 'да') {
+    console.log(Boolean(true));
+} else
+    console.log(Boolean(false));
+
 
 
 
