@@ -4,13 +4,14 @@ let title = prompt("Как называется ваш проект?");
 let screens = prompt("Какие типы экранов нужно разработать?");
 let screenPrice = +prompt("Сколько будет стоить данная работа?");
 let adaptive = confirm("Нужен ли адаптив на сайте?");
-let service1 = prompt("Какой дополнительный тип услуги нужен?");
-let servicePrice1 = +prompt("Сколько это будет стоить?");
-let service2 = prompt("Какой дополнительный тип услуги нужен?");
-let servicePrice2 = +prompt("Сколько это будет стоить?");
+let service = prompt("Какой дополнительный тип услуги нужен?");
+let servicePrice = +prompt("Сколько это будет стоить?");
+// let service2 = prompt("Какой дополнительный тип услуги нужен?");
+// let servicePrice2 = +prompt("Сколько это будет стоить?");
 let rollback = 10; //откат за посредника
-let fullPrice = screenPrice + servicePrice1 + servicePrice2;
+let fullPrice = screenPrice + servicePrice;
 let servicePercentPrice;
+let count = 1;
 
 const showTypeOf = function (variable) {
     console.log(variable, typeof variable)
@@ -29,8 +30,12 @@ const getRollbackMessage = function (price) {
 }
 
 const getAllServicePrices = function (allServicePrices) {
-    allServicePrices = servicePrice1 + servicePrice2;
-    return allServicePrices;
+    if (typeof servicePrice == 'number') {
+        allServicePrices = servicePrice;
+        return allServicePrices;
+    } else {
+        console.log("Не является числом");
+    }
 }
 
 const getFullPrice = function (fullPrice) {
@@ -47,7 +52,19 @@ const getServicePercentPrices = function () {
     return servicePercentPrice = fullPrice - (fullPrice * (rollback / 100)); //полная стоимость за вычетом отката
 }
 
+
 showTypeOf(getTitle(title));
+
+do {
+    service = prompt("Какой дополнительный тип услуги нужен?");
+    servicePrice = +prompt("Сколько это будет стоить?");
+    console.log(servicePrice);
+    servicePrice = +servicePrice;
+    if (service == "") {
+        count--
+    }
+} while (count > 0);
+
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
 console.log(screens);
