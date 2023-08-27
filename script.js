@@ -1,102 +1,98 @@
 'use strict'
 
-let title = prompt("Как называется ваш проект?");
-let screens = prompt("Какие типы экранов нужно разработать?");
-let screenPrice = +prompt("Сколько будет стоить данная работа?");
-let adaptive = confirm("Нужен ли адаптив на сайте?");
-let service = prompt("Какой дополнительный тип услуги нужен?");
-let servicePrice = +prompt("Сколько это будет стоить?");
-// let service2 = prompt("Какой дополнительный тип услуги нужен?");
-// let servicePrice2 = +prompt("Сколько это будет стоить?");
-let rollback = 10; //откат за посредника
-let fullPrice = screenPrice + servicePrice;
-let servicePercentPrice;
-let count = 1;
+// объект appData
+const appData = {
+    title: '',
+    screens: '',
+    screenPrice: 0,
+    adaptive: true,
+    rollback: 10, //откат за посредника
+    allServicePrices: 0,
+    fullPrice: 0,
+    servicePercentPrice: 0,
+    service1: '',
+    service2: '',
+    start: function () {
+        appData.asking()
+        appData.allServicePrices = appData.getAllServicePrices()
+        appData.fullPrice = appData.getFullPrice()
+        appData.servicePercentPrice = appData.getServicePercentPrices()
+        appData.title = appData.getTitle()
+        appData.logger()
+    },
+    logger: function () {
+        console.log("Стоимость доп. услуг: " + appData.allServicePrices)
+        console.log(appData.getRollbackMessage(appData.fullPrice))
+        console.log(typeof appData.title)
+        console.log(typeof appData.screenPrice)
+        console.log(typeof appData.adaptive)
+        console.log(appData.screens.length)
+        console.log(appData.servicePercentPrice)
+        console.log("Стоимость верстки экранов " + appData.screenPrice + " RUB" + " и Стоимость разработки сайта " + appData.fullPrice + " RUB")
+        for (let key in appData) {
+            console.log(key + ' - ' + appData[key]);
+        }
+    },
+    // метод asking
+    asking: function () {
+        appData.title = prompt("Как называется ваш проект?", "Калькулятор верстки")
+        appData.screens = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные")
 
-const showTypeOf = function (variable) {
-    console.log(variable, typeof variable)
-}
+        do {
+            appData.screenPrice = prompt("Сколько будет стоить данная работа?")
+        } while (!appData.isNumber(appData.screenPrice))
+        appData.adaptive = confirm("Нужен ли адаптив на сайте?")
+    },
 
-const getRollbackMessage = function (price) {
-    if (price >= 30000) {
-        return "Даем скидку в 10%";
-    } else if (price >= 15000 && price < 30000) {
-        return "Даем скидку в 5%";
-    } else if (price >= 0 && price < 15000) {
-        return "Скидка не предусмотрена";
-    } else {
-        return "Что то пошло не так";
+    isNumber: function (num) {
+        return !isNaN(parseFloat(num)) && isFinite(num) //уточнить выражение && isFinite(num)
+    },
+
+    getAllServicePrices: function () {
+        let sum = 0
+
+        for (let i = 0; i < 2; i++) {
+            let price = 0
+
+            if (i === 0) {
+                appData.service1 = prompt("Какой дополнительный тип услуги нужен?")
+            } else if (i === 1) {
+                appData.service2 = prompt("Какой дополнительный тип услуги нужен?")
+            }
+
+            do {
+                price = prompt("Сколько это будет стоить?")
+            } while (!appData.isNumber(price))
+
+            sum += +price
+        }
+
+        return sum
+    },
+
+    getFullPrice: function () {
+        return +appData.screenPrice + appData.allServicePrices;
+    },
+
+    getServicePercentPrices: function () {
+        return appData.fullPrice - (appData.fullPrice * (appData.rollback / 100)) //полная стоимость за вычетом отката
+    },
+
+    getTitle: function (string) {
+        return appData.title.trim()[0].toUpperCase() + appData.title.trim().substr(1).toLowerCase()
+    },
+
+    getRollbackMessage: function (price) {
+        if (price >= 30000) {
+            return "Даем скидку в 10%";
+        } else if (price >= 15000 && price < 30000) {
+            return "Даем скидку в 5%";
+        } else if (price >= 0 && price < 15000) {
+            return "Скидка не предусмотрена";
+        } else {
+            return "Что то пошло не так";
+        }
     }
 }
 
-const getAllServicePrices = function (allServicePrices) {
-    if (typeof servicePrice == 'number') {
-        allServicePrices = servicePrice;
-        return allServicePrices;
-    } else {
-        console.log("Не является числом");
-    }
-}
-
-const getFullPrice = function (fullPrice) {
-    fullPrice = screenPrice + getAllServicePrices();
-    return getFullPrice;
-}
-
-const getTitle = function (string) {
-    string = string.trim(string).toLowerCase();
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-const getServicePercentPrices = function () {
-    return servicePercentPrice = fullPrice - (fullPrice * (rollback / 100)); //полная стоимость за вычетом отката
-}
-
-
-showTypeOf(getTitle(title));
-
-do {
-    service = prompt("Какой дополнительный тип услуги нужен?");
-    servicePrice = +prompt("Сколько это будет стоить?");
-    console.log(servicePrice);
-    servicePrice = +servicePrice;
-    if (service == "") {
-        count--
-    }
-} while (count > 0);
-
-showTypeOf(screenPrice);
-showTypeOf(adaptive);
-console.log(screens);
-console.log(getRollbackMessage(fullPrice));
-console.log(getServicePercentPrices());
-
-
-
-
-// console.log(getRollbackMessage(fullPrice));
-// console.log(typeof title);
-// console.log(typeof screenPrice);
-// console.log(typeof adaptive);
-
-// console.log(screens.length);
-// console.log(servicePercentPrice);
-
-// console.log("Стоимость верстки экранов " + screenPrice + " рублей/ долларов/гривен/юан");
-
-
-
-// console.log("Стоимость верстки экранов " + screenPrice + " RUB");
-// console.log("Стоимость верстки экранов " + screenPrice * 0.010706 + " $");
-// console.log("Стоимость верстки экранов " + screenPrice * 0.39537 + " UAH");
-// console.log("Стоимость верстки экранов " + screenPrice * 0.078404 + " CNY");
-// console.log('\n');
-// console.log("Полная стоимость разработки " + fullPrice + " RUB");
-// console.log("Полная стоимость разработки " + fullPrice * 0.010706 + " $");
-// console.log("Полная стоимость разработки " + fullPrice * 0.39537 + " UAH");
-// console.log("Полная стоимость разработки " + fullPrice * 0.078404 + " CNY");
-// console.log('\n');
-// console.log(screens.toLowerCase());
-// console.log('\n');
-// console.log(screens.split(" "));
-
+appData.start()
