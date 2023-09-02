@@ -1,4 +1,35 @@
 'use strict'
+const title = document.getElementsByTagName('h1')[0]
+const btnEliminate = document.getElementsByClassName('handler_btn')
+const btnPlus = document.querySelector('.screen-btn')
+const otherItemsPercent = document.querySelectorAll('.other-items.percent')
+const otherItemsNumber = document.querySelectorAll('.other-items.number')
+const inputRange = document.querySelector('.rollback input')
+const spanRangeValue = document.querySelector('.rollback span')
+const totalInput1 = document.getElementsByClassName('total-input')[0]
+const totalInput2 = document.getElementsByClassName('total-input')[1]
+const totalInput3 = document.getElementsByClassName('total-input')[2]
+const totalInput4 = document.getElementsByClassName('total-input')[3]
+const totalInput5 = document.getElementsByClassName('total-input')[4]
+let screen = document.querySelectorAll('.screen')
+
+
+console.log(title)
+console.log(btnEliminate[0])
+console.log(btnEliminate[1])
+console.log(btnPlus)
+console.log(otherItemsPercent)
+console.log(otherItemsNumber)
+console.log(inputRange)
+console.log(spanRangeValue)
+console.log(totalInput1)
+console.log(totalInput2)
+console.log(totalInput3)
+console.log(totalInput4)
+console.log(totalInput5)
+console.log(screen)
+
+'use strict'
 
 
 // объект appData
