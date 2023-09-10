@@ -1,32 +1,38 @@
-const adv = document.querySelector('.adv').remove()
-// console.log(adv)
+// 1) Повесить на кнопку обработчик события click и реализовать такой функционал:
+// В input[type = text] можно ввести цвет: red, green, blue и так далее.
+// По нажатию на кнопку необходимо брать этот цвет и добавлять его свойству style = "backgroundColor: " квадрата
+// Работать должно так: ввели в input[type = text] yellow, по нажатию на кнопку значение input[type = text] 
+// попадает в свойство style = "backgroundColor: yellow" и фон квадрата должен поменяться
+// 2) В кружке(который внутри квадрата) есть кнопка.Дать ей свойство style = "display: none; "
+// 3) Повесить на input[type = range] обработчик события input и реализовать такой функционал:
+// при каждом изменении положения ползунка значение input[type = range] необходимо заносить в свойства ширины и высоты кружка(который внутри квадрата)(height и width)(в процентах!!)
 
-const book = document.querySelectorAll('.book')
-console.log(book)
+const btn = document.getElementById('btn')
+const text = document.getElementById('text')
+const eBtn = document.getElementById('e_btn')
+const range = document.getElementById('range')
+let value
+const circle = document.getElementById('circle')
+let color
+const rangeSpan = document.getElementById('range-span')
 
-book[0].before(book[1])
-book[2].before(book[4])
-book[5].after(book[2])
+function myRange() {
+    value = range.value
+    rangeSpan.textContent = value
+    return rangeSpan.textContent
+}
 
-document.body.style.backgroundImage = "url(./image/you-dont-know-js.jpg)"
+btn.addEventListener("click", function () {
+    color = text.value
+    document.getElementById('square').style.backgroundColor = color
+})
 
-const book3 = document.querySelectorAll('.book h2 a')[2]
-book3.innerHTML = 'Книга 3: this и Прототипы Объектов'
+range.addEventListener("input", function () {
+    console.log(myRange())
+    document.getElementById('circle').style.width = myRange() + '%'
+    document.getElementById('circle').style.height = myRange() + '%'
+})
 
-const list = document.querySelectorAll('ul li')
-console.log(list)
-
-//книга 2
-list[9].after(list[12])
-list[15].after(list[8])
-list[12].after(list[14])
-
-//книга 5
-list[37].after(list[45])
-list[40].after(list[38])
-list[43].after(list[41])
-
-// book.append
-let li = document.createElement('li');
-li.textContent = "Глава 8: За пределами ES6"
-list[56].insertAdjacentElement('beforeBegin', li)
+eBtn.addEventListener("click", function () {
+    document.getElementById('e_btn').style.display = 'none'
+})
